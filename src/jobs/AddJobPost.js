@@ -12,10 +12,10 @@ export default function AddJobPost() {
     quickSummary: "",
     jobPostContent: "",
     applyLink: "",
-    image: ""
+    imageName: ""
   });
 
-  const { postName, quickSummary, jobPostContent, applyLink, image } = JobPost;
+  const { postName, quickSummary, jobPostContent, applyLink, imageName } = JobPost;
 
   const onInputChange = (e) => {
     console.log(e);
@@ -91,11 +91,11 @@ export default function AddJobPost() {
                 Company Image
               </label>
               <input
-                type={"file"}
+                type={"text"}
                 className="form-control"
                 placeholder="Select Image"
-                name="image"
-                value={image}
+                name="imageName"
+                value={imageName}
                 onChange={(e) => onInputChange(e)}
               />
             </div>
