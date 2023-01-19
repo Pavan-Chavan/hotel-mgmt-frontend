@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
@@ -42,30 +42,30 @@ const Write = () => {
   }, []);
 
   const handleClick = async (e) => {
+
     e.preventDefault();
     const imgUrl = await upload();
-
+    const formData = {
+      movieName,
+      description: description,
+      category,
+      img: file ? imgUrl : "",
+      downloadLink,
+      youtubeLink
+    }
+    
     try {
+      Object.keys(formData).map((fieldName) => {
+        if (!formData[fieldName]) {
+          throw `Please enter ${fieldName}`;
+        }
+      })
       state
-        ? await axios.put(`${API_HEADER}getMovies/${state.id}`, {
-            movieName,
-            description: description,
-            category,
-            img: file ? imgUrl : "",
-            downloadLink,
-            youtubeLink
-          })
-        : await axios.post(`${API_HEADER}getMovies/`, {
-            movieName,
-            description: description,
-            category,
-            img: file ? imgUrl : "",
-            downloadLink,
-            youtubeLink,
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")            
-          });
+        ? await axios.put(`${API_HEADER}getMovies/${state.id}`,formData )
+        : await axios.post(`${API_HEADER}getMovies/`, formData);
           navigate("/")
     } catch (err) {
+      alert(err);
       console.log(err);
     }
   };

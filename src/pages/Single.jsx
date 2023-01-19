@@ -39,7 +39,7 @@ const Single = () => {
 
   const handleDelete = async ()=>{
     try {
-      await axios.delete(`${API_HEADER}posts/${postId}/${seoLink}`);
+      await axios.delete(`${API_HEADER}getMovies/${postId}`);
       navigate("/")
     } catch (err) {
       console.log(err);
