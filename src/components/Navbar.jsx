@@ -28,7 +28,7 @@ const { currentUser, logout } = useContext(AuthContext);
                               <div className="header-btn d-none f-right d-lg-block">
                                     {currentUser ? (
                                       <Link className="btn head-btn2 mr-10" to="/write">
-                                        Post a Job Update
+                                        Post a Movie Update
                                       </Link>
                                     ) : ""}
                                   {currentUser ? (

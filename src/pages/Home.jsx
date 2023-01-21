@@ -13,7 +13,7 @@ import PostShimmer from "../components/shimmer/PostShimmer";
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [category,setCategory] = useState("MARATHI");
+  const [category,setCategory] = useState("MOVIES");
   const [isLoading, setIsLoading] = useState(true);
 
   const cat = useLocation().search
@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${API_HEADER}getMovies/?cat=${category}&count=6`);
+        const res = await axios.get(`${API_HEADER}getMovies/?cat=${category}&count=10`);
         setMovies(res.data);
         setIsLoading(false);
       } catch (err) {
@@ -56,8 +56,8 @@ const Home = () => {
   return (
     <>
     {<ThumbNail msg=""/>}
-    {<OurService/>}
-    <div class="home-blog-area blog-h-padding">
+    {<OurService category = {categories}/>}
+    <div class="home-blog-area mb-70">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -71,7 +71,7 @@ const Home = () => {
                     <div class="col-lg-12">
                         <div class="section-tittle text-center mb-30">
                         <select class="form-select" aria-label="Default select example" onChange={(event)=>{console.log(event); setCategory(event.target.value)}}>
-                          <option selected>Open this select menu</option>
+                          <option selected>All Movies</option>
                             {categories.map((cat) => (
                               <option value={cat.CATEGORY}>{cat.CATEGORY}</option>
                             ))}
@@ -90,10 +90,10 @@ const Home = () => {
                           <div class="blog-cap">
                             <p>|   {movie.CATEGORY}</p>
                             <h3>
-                            <Link className="link" to={`/movie/${movie.id}/${getPostTitlePara(movie.MOVIENAME)}`}>
+                            <Link className="link" to={`/movie/${movie.id}/${movie.SEOLINK}`}>
                               {movie.MOVIENAME}
                             </Link></h3>
-                            <Link className="more-btn" to={`/movie/${movie.id}/${getPostTitlePara(movie.MOVIENAME)}`}>
+                            <Link className="more-btn" to={`/movie/${movie.id}/${movie.SEOLINK}`}>
                               Download now »
                             </Link>
                           </div>

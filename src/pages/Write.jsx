@@ -11,6 +11,8 @@ const Write = () => {
   const [movieName, setMovieName] = useState(state?.MOVIENAME || "");
   const [description, setDescription] = useState(state?.DESCRIPTION || "");
   const [file, setFile] = useState(null);
+  const [seoLink, setSeoLinkLink] = useState(state?.SEOLINK || "");
+  const [posterName, setPosterName] = useState(state?.POSTER || "");
   const [category, setCategory] = useState(state?.CATEGORY || "");
   const [categories, setCategories] = useState([]);
   const [downloadLink, setDownloadLink] = useState(state?.DOWNLOADLINK || "");
@@ -42,16 +44,22 @@ const Write = () => {
   }, []);
 
   const handleClick = async (e) => {
-
     e.preventDefault();
-    const imgUrl = await upload();
+    let imgUrl;
+
+    if(state)
+      imgUrl = posterName;
+    else 
+      imgUrl = await upload();
+    
     const formData = {
       movieName,
       description: description,
       category,
-      img: file ? imgUrl : "",
+      img: imgUrl,
       downloadLink,
-      youtubeLink
+      youtubeLink,
+      seoLink
     }
     
     try {
@@ -64,6 +72,7 @@ const Write = () => {
         ? await axios.put(`${API_HEADER}getMovies/${state.id}`,formData )
         : await axios.post(`${API_HEADER}getMovies/`, formData);
           navigate("/")
+        alert("Post Create/Update succefully");
     } catch (err) {
       alert(err);
       console.log(err);
@@ -89,9 +98,9 @@ const Write = () => {
             />
           </div>
           <select class="form-select" aria-label="Default select example" onChange={(event)=>{setCategory(event.target.value)}}>
-            <option selected>Open this select menu</option>
+            <option>Select Movie category</option>
               {categories.map((cat) => (
-                <option selected={cat==category} value={cat.CATEGORY}>{cat.CATEGORY}</option>
+                <option selected={(cat.CATEGORY===category)} value={cat.CATEGORY}>{cat.CATEGORY}</option>
               ))}
           </select>
           <input
@@ -105,6 +114,12 @@ const Write = () => {
             placeholder="You Tube Link"
             value={youtubeLink}
             onChange={(e) => setYoutubeLink(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="SEO text for link"
+            value={seoLink}
+            onChange={(e) => setSeoLinkLink(e.target.value)}
           />
           
         </div>
@@ -120,10 +135,17 @@ const Write = () => {
               <b>Visibility: </b> Public
             </span>
             <input
+              type="text"
+              id="POSTER"
+              name="POSTER"
+              disabled
+              value={posterName}
+            />
+            <input
               type="file"
               id="file"
               name=""
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {setFile(e.target.files[0]);setPosterName(e.target.files[0].name)}}
             />
             <div className="buttons">
               <button onClick={handleClick}>Publish</button>

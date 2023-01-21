@@ -2,7 +2,13 @@ const db = require('../db.js');
 const jwt = require('jsonwebtoken');
 
 const getMovies = (req, res) => {
-  const subQuery = `SELECT * FROM movies where CATEGORY = "${req.query.cat}" ORDER BY id DESC`;
+  let subQuery = "";
+  if (req.query.cat==="MOVIES") {
+     subQuery = `SELECT * FROM movies ORDER BY id DESC`;
+  } else {
+    subQuery = `SELECT * FROM movies where CATEGORY = "${req.query.cat}" ORDER BY id DESC`;
+  }
+  
   const q = req.query.count
   ? `${subQuery} LIMIT ${req.query.count}`
   : `${subQuery}`;
@@ -14,7 +20,7 @@ const getMovies = (req, res) => {
 };
 
 const getMovie = (req, res) => {
-  const q = "SELECT m.id, `username`,`MOVIENAME`, `DESCRIPTION`, `DOWNLOADLINK`, `POSTER`, `YOUTUBELINK`, `CATEGORY` FROM users u JOIN movies m ON u.id = m.uid WHERE m.id = ?";
+  const q = "SELECT m.id, `username`,`MOVIENAME`, `DESCRIPTION`, `DOWNLOADLINK`, `POSTER`, `YOUTUBELINK`, `CATEGORY`,`SEOLINK` FROM users u JOIN movies m ON u.id = m.uid WHERE m.id = ?";
 
     const values = [
       req.params.id
@@ -36,7 +42,7 @@ const addMovie = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!",err);
 
     const q =
-      "INSERT INTO movies(`MOVIENAME`, `DESCRIPTION`, `DOWNLOADLINK`, `POSTER`,`DATE`, `YOUTUBELINK`,`CATEGORY`,`uid`) VALUES (?)";
+      "INSERT INTO movies(`MOVIENAME`, `DESCRIPTION`, `DOWNLOADLINK`, `POSTER`,`DATE`, `YOUTUBELINK`,`CATEGORY`,`uid`,`SEOLINK`) VALUES (?)";
 
     const values = [
       req.body.movieName,
@@ -46,7 +52,8 @@ const addMovie = (req, res) => {
       req.body.date,
       req.body.youtubeLink,
       req.body.category,
-      userInfo.id
+      userInfo.id,
+      req.body.seoLink,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -83,7 +90,7 @@ const updateMovie = (req, res) => {
 
     const postId = req.params.id;
     const q =
-      "UPDATE movies SET `MOVIENAME`=?,`DESCRIPTION`=?,`DOWNLOADLINK`=?,`POSTER`=?,`YOUTUBELINK`=?, `CATEGORY`=? WHERE `id` = ? AND `UID` = ?";
+      "UPDATE movies SET `MOVIENAME`=?,`DESCRIPTION`=?,`DOWNLOADLINK`=?,`POSTER`=?,`YOUTUBELINK`=?, `CATEGORY`=?,`SEOLINK`=? WHERE `id` = ? AND `UID` = ?";
 
     const values = [
       req.body.movieName,
@@ -91,7 +98,8 @@ const updateMovie = (req, res) => {
       req.body.downloadLink,
       req.body.img,
       req.body.youtubeLink,
-      req.body.category
+      req.body.category,
+      req.body.seoLink
     ];
     //UNDER CONTRUCTION
     db.query(q, [...values, postId, userInfo.id], (err, data) => {

@@ -102,9 +102,9 @@ const Single = () => {
             </iframe>
             <div className="row container d-flex">
               <div className="items-link items-link2 f-right d-flex" style={{"width":"auto"}}>
-                <Link to={`${movie.DOWNLOADLINK}`} className="mr-10">
+                <a target="_blank" href={`${movie.DOWNLOADLINK}`} className="mr-10">
                   Download Now
-                </Link>
+                </a>
                 <Link to={`/`}>
                   Other Movies
                 </Link>
