@@ -22,56 +22,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="container">
-      <div className="py-4">
-        <table className="table border shadow">
-          <thead>
-            <tr>
-              <th scope="col">S.N</th>
-              <th scope="col">Post Name</th>
-              <th scope="col">Apply Link</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row" key={index}>
-                  {index + 1}
-                </th>
-                <td>{user.postName}</td>
-                <td><a href={`${user.applyLink}`}>Apply Link</a></td>
-                <td>
-                  <Link
-                    className="btn btn-primary mx-2"
-                    to={`/viewjobpost/${user.id}`}
-                  >
-                    View
-                  </Link>
-                  <Link
-                    className="btn btn-outline-primary mx-2"
-                    to={`/editjobpost/${user.id}`}
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    className="btn btn-danger mx-2"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Link
-          className="btn btn-outline-primary mx-2"
-          to={`/addjobpost`}
-        >
-          Add Job Post
-        </Link>
-      </div>
+    <div className="container">hello
     </div>
   );
 }
