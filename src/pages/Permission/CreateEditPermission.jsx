@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { getRole, resetRoleData, updateRole } from "../../store/slice/RoleSlice";
+import { getPermission, resetState, updatePermission } from "../../store/slice/PermissionSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const renderFormTitle = (mode) => {
@@ -11,54 +11,54 @@ const renderFormTitle = (mode) => {
   }
 }
 
-export default function CreateEditRole() {
+export default function CreateEditPermission() {
   const location = useLocation();
   const mode = location.pathname.split("/")[2];
   const dispatchAction = useDispatch();
   const state = useLocation().state;
-  const roleData = useSelector((state) => {return state.roles})
+  const PermissionData = useSelector((state) => {return state.permissions})
 
   useEffect(()=>{
     if(mode === "edit") {
-      loadRoleData();
+      loadPermissionData();
     } else {
-      dispatchAction(resetRoleData({}));
+      dispatchAction(resetState({}));
     }
   },[]);
 
-  const loadRoleData = () => {
-    dispatchAction(getRole(state));
+  const loadPermissionData = () => {
+    dispatchAction(getPermission(state));
   }
 
   const updateField = (value,field) => {
-    dispatchAction(updateRole({value,field}));
+    dispatchAction(updatePermission({value,field}));
   }
 
   return (
     <div className="main-panel">
       <div className="content-wrapper">
         <div className="page-header">
-          <h3 className="page-title">{renderFormTitle(mode)} Role</h3>
+          <h3 className="page-title">{renderFormTitle(mode)} Permission</h3>
         </div>
         <div className="row justify-content-center">
           <div className="col-md-12 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">{renderFormTitle(mode)} Role</h4>
+                <h4 className="card-title">{renderFormTitle(mode)} Permission</h4>
                 <form className="forms-sample">
                   <div className="form-group">
-                    <label for="RoleName">Role Name</label>
-                    <input type="text" name="name" className="form-control" value={roleData.role.name || ""} id="roleName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Role Name"/>
+                    <label for="PermissionName">Permission Name</label>
+                    <input type="text" name="name" className="form-control" value={PermissionData.permission?.name || ""} id="permissionName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Permission Name"/>
                   </div>
                   <div class="form-group">
                     <label for="exampleSelectGender">Status</label>
-                    <select class="form-control" name="isDisable" value={roleData.role.isDisable || true} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+                    <select class="form-control" name="isDisable" value={PermissionData.permission?.isDisable || true} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
                       <option value={true}>Enable</option>
                       <option value={false}>Disable</option>
                     </select>
                   </div>
                   <button type="submit" className="btn btn-primary mr-2">Submit</button>
-                  <Link className="btn btn-dark" to={"/role"}>Cancle</Link>
+                  <Link className="btn btn-dark" to={"/permission"}>Cancle</Link>
                 </form>
               </div>
             </div>

@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import {Outlet} from "react-router-dom";
 import RoleList from "./pages/Role/RoleList";
 import CreateEditRole from "./pages/Role/CreateEditRole";
+import PermissionList from "./pages/Permission/PermissionList";
+import CreateEditPermission from "./pages/Permission/CreateEditPermission";
 
 const Layout = () => {
   return (
@@ -44,8 +46,20 @@ export const route = {
 			element: <RoleList />,
 		},
 		{
+			path: "/permission",
+			element: <PermissionList />,
+		},
+		{
 			path: "/role/:mode/:roleId",
 			element: <CreateEditRole />,
+		},
+		{
+			path: "/permission/:mode",
+			element: <CreateEditPermission />,
+		},
+    {
+			path: "/permission/:mode/:roleId",
+			element: <CreateEditPermission />,
 		},
 		{
 			path: "/role/:mode",

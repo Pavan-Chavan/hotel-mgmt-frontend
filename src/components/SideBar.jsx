@@ -21,6 +21,14 @@ const renderList = (currentUser) => {
       </span>
       <span class="menu-title">Role</span>
     </Link>
+  </li>
+  <li class="nav-item menu-items">
+    <Link className="nav-link" to="/permission">
+      <span class="menu-icon">
+        <i class="mdi mdi-account-key"></i>
+      </span>
+      <span class="menu-title">Permission</span>
+    </Link>
   </li></>);
   } else {
     return (
