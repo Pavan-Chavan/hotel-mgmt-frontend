@@ -10,14 +10,14 @@ export const AuthContexProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
+    setCurrentUser({username: "test",password: "test"});
     const res = await axios.post(`${API_HEADER}auth/login`, inputs);
-    setCurrentUser(res.data);
     console.log("==>"+JSON.stringify(res.data.token));
   };
 
   const logout = async (inputs) => {
-    await axios.post(`${API_HEADER}auth/logout`);
     setCurrentUser(null);
+    await axios.post(`${API_HEADER}auth/logout`);
   };
 
   useEffect(() => {
