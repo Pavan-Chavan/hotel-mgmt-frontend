@@ -1,16 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Header from "./layout/NavBar";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+import { route } from "./route";
+
+const router = createHashRouter([route]);
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-        </Routes>
-      </Router>
+    <div className="app">
+      <RouterProvider router={router} />
     </div>
   );
 }
