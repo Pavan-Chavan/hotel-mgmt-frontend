@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getRole, resetRoleData, updateRole } from "../../store/slice/RoleSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { createRole } from "../../api/role";
 
 const renderFormTitle = (mode) => {
   if(mode === "edit") {
@@ -34,6 +35,15 @@ export default function CreateEditRole() {
     dispatchAction(updateRole({value,field}));
   }
 
+  const postRole = (options) => {
+    if(mode == "edit") {
+      // call put method
+    } else {
+      createRole(options);
+      console.log(options);
+    }
+  }
+
   return (
     <div className="main-panel">
       <div className="content-wrapper">
@@ -48,16 +58,16 @@ export default function CreateEditRole() {
                 <form className="forms-sample">
                   <div className="form-group">
                     <label for="RoleName">Role Name</label>
-                    <input type="text" name="name" className="form-control" value={roleData.role.name || ""} id="roleName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Role Name"/>
+                    <input type="text" name="roleName" className="form-control" value={roleData.role.roleName || ""} id="roleName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Role Name"/>
                   </div>
                   <div class="form-group">
                     <label for="exampleSelectGender">Status</label>
-                    <select class="form-control" name="isDisable" value={roleData.role.isDisable || true} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+                    <select class="form-control" name="isDisable" value={roleData.role.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
                       <option value={true}>Enable</option>
                       <option value={false}>Disable</option>
                     </select>
                   </div>
-                  <button type="submit" className="btn btn-primary mr-2">Submit</button>
+                  <button type="submit" onClick={() => {postRole(roleData.role)}}className="btn btn-primary mr-2">Submit</button>
                   <Link className="btn btn-dark" to={"/role"}>Cancle</Link>
                 </form>
               </div>
