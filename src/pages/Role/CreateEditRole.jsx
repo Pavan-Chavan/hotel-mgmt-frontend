@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getRole, resetRoleData, updateRole } from "../../store/slice/RoleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createRole } from "../../api/role";
@@ -14,6 +14,7 @@ const renderFormTitle = (mode) => {
 
 export default function CreateEditRole() {
   const location = useLocation();
+  const navigate = useNavigate();
   const mode = location.pathname.split("/")[2];
   const dispatchAction = useDispatch();
   const state = useLocation().state;
@@ -41,6 +42,7 @@ export default function CreateEditRole() {
     } else {
       createRole(options);
       console.log(options);
+      navigate("/role")
     }
   }
 
