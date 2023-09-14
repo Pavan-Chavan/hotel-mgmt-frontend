@@ -37,13 +37,9 @@ export default function CreateEditRole() {
   }
 
   const postRole = (options) => {
-    if(mode == "edit") {
-      // call put method
-    } else {
-      createRole(options);
-      console.log(options);
-      navigate("/role")
-    }
+    createRole(options);
+    console.log(options);
+    navigate("/role")
   }
 
   return (
