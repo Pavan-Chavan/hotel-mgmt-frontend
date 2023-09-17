@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getRolesData } from "../../api/role";
+import { deleteRole, getRolesData } from "../../api/role";
+
+const deleteRoleId = async (id) => {
+  const resMsg = await deleteRole(id);
+  window.alert(resMsg);
+}
 
 const renderRoleList = (Roles,isLoading) => {
   if (isLoading) {
@@ -8,15 +13,15 @@ const renderRoleList = (Roles,isLoading) => {
   } else {
     return Roles?.map((role) => 
     { 
-      const btnClass = role?.isDisable ? "btn-success" : "btn-danger";
+      const btnClass = role?.isDisable ? "btn-danger" : "btn-success";
       return <>
         <tr>
         <td>{role?.roleName}</td>
         <td>{role?.date}</td>
         <td>
           <div className="template-demo">
-            <button type="button" className={`me-5 btn ${btnClass} btn-md`}>{role?.isDisable ?"Enable":"Disable"}</button>
-            <button type="button" className="btn btn-danger btn-md">Delete</button>
+            <button type="button" className={`me-5 btn ${btnClass} btn-md`}>{role?.isDisable ?"Disable":"Enable"}</button>
+            <button type="button" onClick={() => {deleteRoleId(role.roleId)}} className="btn btn-danger btn-md">Delete</button>
             <Link className="btn btn-warning btn-md" state={role} to={`/role/edit/${role.roleId}`}>Edit</Link>
           </div>
         </td>

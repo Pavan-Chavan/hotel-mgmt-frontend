@@ -22,3 +22,20 @@ export const createRole = (options) => {
     console.log(err);
   }
 }
+
+export const deleteRole = (id) => {
+  try {
+    if(module.demoMode) return "Cannot delte its demo mode";
+		const res = Promise.resolve(
+      axios.delete(module.API.role.deleteRole + `?roleId=${id}`)
+      .then((res) => {
+        return res.data;
+      }, (res) => {
+        return res.message;
+      })
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
+}
