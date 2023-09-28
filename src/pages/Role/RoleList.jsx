@@ -1,27 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { deleteRole, getRolesData } from "../../api/role";
-
-const deleteRoleId = async (id) => {
-  const resMsg = await deleteRole(id);
-  window.alert(resMsg);
-}
+import { Link, useNavigate } from "react-router-dom";
+import { deleteRole, getRolesData, updateRole } from "../../api/role";
 
 const renderRoleList = (Roles,isLoading) => {
+
+  const deleteRoleId = async (id) => {
+    const resMsg = await deleteRole(id);
+    window.alert(resMsg);
+    window.location.reload();
+  }
+
+  const updateRoleId = async (id,status) => {
+    const resMsg = await updateRole(id,status);
+    window.alert(resMsg);
+    window.location.reload();
+  };
+
   if (isLoading) {
     return <>loading...</>
   } else {
     return Roles?.map((role) => 
     { 
-      const btnClass = role?.isDisable ? "btn-danger" : "btn-success";
+      const btnClass = role?.isDisable ? "btn-success" : "btn-danger";
+      const date = new Date(role?.createdAt).toDateString();
       return <>
         <tr>
         <td>{role?.roleName}</td>
-        <td>{role?.date}</td>
+        <td>{date}</td>
         <td>
           <div className="template-demo">
-            <button type="button" className={`me-5 btn ${btnClass} btn-md`}>{role?.isDisable ?"Disable":"Enable"}</button>
-            <button type="button" onClick={() => {deleteRoleId(role.roleId)}} className="btn btn-danger btn-md">Delete</button>
+            <button type="button" onClick={()=>{updateRoleId(role?.roleId,role?.isDisable)}} className={`me-5 btn ${btnClass} btn-md`}>{role?.isDisable ?"Enable":"Disable"}</button>
+            <button type="button" onClick={() => {deleteRoleId(role?.roleId)}} className="btn btn-danger btn-md">Delete</button>
             <Link className="btn btn-warning btn-md" state={role} to={`/role/edit/${role.roleId}`}>Edit</Link>
           </div>
         </td>
