@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getPermissionData, updatePermissionStatus } from "../../api/permission";
+import { deletePermission, getPermissionData, updatePermissionStatus } from "../../api/permission";
 import { useState } from "react";
 
 const PermissionList = () => {
@@ -24,6 +24,12 @@ const PermissionList = () => {
     window.location.reload();
   };
 
+  const deletePermissionId = async (id) => {
+    const resMsg = await deletePermission(id);
+    window.alert(resMsg);
+    window.location.reload();
+  }
+
   const renderPermissionList = () => {
     return Permissions.map((permission) => 
     {
@@ -34,7 +40,7 @@ const PermissionList = () => {
         <td>
           <div className="template-demo">
             <button onClick={()=>{updatePermission(permission?.permissionId,permission?.isDisable)}} type="button" className={`me-5 btn ${btnClass} btn-md`}>{permission.isDisable ?"Enable":"Disable"}</button>
-            <button type="button" className="btn btn-danger btn-md">Delete</button>
+            <button type="button" onClick={() => {deletePermissionId(permission?.permissionId)}} className="btn btn-danger btn-md">Delete</button>
             <Link className="btn btn-warning btn-md" state={permission} to={`/permission/edit/${permission.permissionId}`}>Edit</Link>
           </div>
         </td>

@@ -9,7 +9,7 @@ export const module = {
 		permission : {
 			getPermission:"1.0/permisisons/getPermissions",
 			savePermission:"1.0/permisisons/savePermission",
-			deletePermission: "1.0/permisisons/deleteRole",
+			deletePermission: "1.0/permisisons/deletePermission",
 			updatePermissionStatus: "1.0/permisisons/status"
 		}
 	},
