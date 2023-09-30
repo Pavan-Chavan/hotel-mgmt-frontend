@@ -40,7 +40,7 @@ export const deleteRole = (id) => {
   }
 }
 
-export const updateRole = (id,status) => {
+export const updateRoleStatus = (id,status) => {
   try {
     if(module.demoMode) return "Cannot update Status, demo mode";
     const value = status ? "enable" : "disable";

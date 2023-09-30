@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getPermission, resetState, updatePermission } from "../../store/slice/PermissionSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { createPermission } from "../../api/permission";
 
 const renderFormTitle = (mode) => {
   if(mode === "edit") {
@@ -17,6 +18,7 @@ export default function CreateEditPermission() {
   const dispatchAction = useDispatch();
   const state = useLocation().state;
   const PermissionData = useSelector((state) => {return state.permissions})
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if(mode === "edit") {
@@ -34,6 +36,12 @@ export default function CreateEditPermission() {
     dispatchAction(updatePermission({value,field}));
   }
 
+  const postPermission = () => {
+    console.log(PermissionData.permission);
+    createPermission(PermissionData.permission);
+    navigate("/permission");
+  }
+
   return (
     <div className="main-panel">
       <div className="content-wrapper">
@@ -48,7 +56,7 @@ export default function CreateEditPermission() {
                 <form className="forms-sample">
                   <div className="form-group">
                     <label for="PermissionName">Permission Name</label>
-                    <input type="text" name="name" className="form-control" value={PermissionData.permission?.name || ""} id="permissionName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Permission Name"/>
+                    <input type="text" name="permissionName" className="form-control" value={PermissionData.permission?.permissionName || ""} id="permissionName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Permission Name"/>
                   </div>
                   <div class="form-group">
                     <label for="exampleSelectGender">Status</label>
@@ -57,7 +65,7 @@ export default function CreateEditPermission() {
                       <option value={false}>Disable</option>
                     </select>
                   </div>
-                  <button type="submit" className="btn btn-primary mr-2">Submit</button>
+                  <button type="submit"  onClick={postPermission} className="btn btn-primary mr-2">Submit</button>
                   <Link className="btn btn-dark" to={"/permission"}>Cancle</Link>
                 </form>
               </div>

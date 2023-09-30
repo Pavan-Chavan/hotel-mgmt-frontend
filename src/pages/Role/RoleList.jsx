@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteRole, getRolesData, updateRole } from "../../api/role";
+import { deleteRole, getRolesData, updateRoleStatus } from "../../api/role";
 
 const renderRoleList = (Roles,isLoading) => {
 
@@ -11,7 +11,7 @@ const renderRoleList = (Roles,isLoading) => {
   }
 
   const updateRoleId = async (id,status) => {
-    const resMsg = await updateRole(id,status);
+    const resMsg = await updateRoleStatus(id,status);
     window.alert(resMsg);
     window.location.reload();
   };
