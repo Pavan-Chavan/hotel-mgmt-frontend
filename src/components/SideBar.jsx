@@ -23,6 +23,14 @@ const renderList = (currentUser) => {
     </Link>
   </li>
   <li class="nav-item menu-items">
+    <Link className="nav-link" to="/subusers">
+      <span class="menu-icon">
+        <i class="mdi mdi-account-key"></i>
+      </span>
+      <span class="menu-title">Sub User</span>
+    </Link>
+  </li>
+  <li class="nav-item menu-items">
     <Link className="nav-link" to="/permission">
       <span class="menu-icon">
         <i class="mdi mdi-account-key"></i>
