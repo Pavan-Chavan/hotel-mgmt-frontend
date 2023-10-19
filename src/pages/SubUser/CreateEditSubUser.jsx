@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { postPermission, postRole, postSubUser, updateUserFields } from '../../store/slice/SubUserSlic';
 import { getRolesData } from '../../api/role';
 import { getPermissionData } from '../../api/permission';
+import { createSubUser } from '../../api/subuser';
 
 export default function CreateEditSubUser() {
   const location = useLocation();
   const mode = location.pathname.split("/")[2];
   const subUserId = location.pathname.split("/")[3];
   const dispatchAction = useDispatch();
-  const subUser = useSelector((state) => {return state.subUser})
+  const subUser = useSelector((state) => {return state.subUser});
+  const navigate = useNavigate();
 
   const subUserdata = {
     id:234,
@@ -44,29 +46,56 @@ export default function CreateEditSubUser() {
     dispatchAction(updateUserFields({value,field}));
   }
 
+  const updatePermissions = (e) => {
+    let value = subUser.subUserBody.permissionsIds || [];
+    const field = e.target.name;
+    if (e.target.value === "true") {
+      const index = value.indexOf(Number(e.target.id));
+      if (index > -1) {
+        value = value.filter((permissionId)=>{return !(permissionId === Number(e.target.id))})
+      }
+    } else {
+      value = [...value, Number(e.target.id)]
+    }
+    dispatchAction(updateUserFields({value,field}));
+  }
+
   const renderPermissions = () => {
     return (<div>
       <div class="form-group">
-        <label>Multiple select using select 2</label>
-        <select class="js-example-basic-multiple" name="permissionsIds" multiple="multiple" onChange={(e)=>{updateField(e.target.value,e.target.name)}} style={{width:"100%"}}>
-        {subUser.permissions.map((permission)=>{
-          return <option value={permission.permissionId}>{permission.permissionName}</option>
-        })}
-        </select>
-        {subUser.permissions.map((permission)=>{
-          const selected = subUser.subUserBody.permissionsIds.includes(permission);
-          const btnClass =  selected ? "btn-success" :"btn-danger"
-          return <button type="button" id={permission.permissionId} value={permission.permissionName} onClick={() => {}} className={`btn ${btnClass} btn-md mr-2`}>{permission.permissionName}</button>
-        })}
+        <label>Select Permissions</label>
+        <div onClick={updatePermissions}>
+          {subUser.permissions.map((permission)=>{
+            const selected = subUser.subUserBody.permissionsIds?.includes(permission.permissionId);
+            const btnClass =  selected ? "btn-success" :"btn-danger"
+            return <button type="button" name="permissionsIds" id={permission.permissionId} value={selected} className={`btn ${btnClass} btn-md mr-2`}>{permission.permissionName}</button>
+          })}
+        </div>
       </div>
     </div>
     );
   };
 
+  const renderIsDisable = () => {
+    return (
+      <div class="form-group">
+        <label for="exampleSelectGender">Status</label>
+        <select class="form-control" name="isDisable" value={subUser.subUserBody.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+          <option value={true}>Enable</option>
+          <option value={false}>Disable</option>
+        </select>
+      </div>
+    );
+  }
   const updateField = (value,field) => {
     dispatchAction(updateUserFields({value,field}));
   }
 
+  const savePermission = () => {
+    createSubUser(subUser.subUserBody);
+    console.log(subUser.subUserBody);
+    navigate("/subusers");
+  }
   return (
     <div className="main-panel">
       <div className="content-wrapper">
@@ -92,6 +121,9 @@ export default function CreateEditSubUser() {
                       </select>
                   </div>
                   {renderPermissions()}
+                  {renderIsDisable()}
+                  <button type="submit" onClick={() => {savePermission()}}className="btn btn-primary mr-2">Submit</button>
+                  <Link className="btn btn-dark" to={"/role"}>Cancle</Link>
                 </form>
               </div>
             </div>

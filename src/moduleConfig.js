@@ -14,7 +14,7 @@ export const module = {
 		},
 		user : {
 			getSubUser:"1.0/users/getUsers",
-			savePermission:"1.0/permisisons/savePermission",
+			saveSubUser:"1.0/users/createUser",
 			deletePermission: "1.0/permisisons/deletePermission",
 			updatePermissionStatus: "1.0/permisisons/status"
 		}

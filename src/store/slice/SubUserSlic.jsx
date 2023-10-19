@@ -4,7 +4,7 @@ const roleSlice = createSlice({
     name: "subUser",
     initialState: {
 			subUserBody : {
-				permissionsIds:[]
+				permissionsIds: []
 			},
 			roles: [],
 			permissions:[]

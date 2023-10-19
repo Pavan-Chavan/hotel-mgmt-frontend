@@ -12,3 +12,13 @@ export const getSubUsers = () => {
 		console.log(err);
 	}
 }
+
+export const createSubUser = (options) => {
+	try {
+	  if(module.demoMode) return;
+	  const res = axios.post(module.API.user.saveSubUser,options)
+		.then((res) => {console.log(res)});
+	} catch (err) {
+	  console.log(err);
+	}
+  }
