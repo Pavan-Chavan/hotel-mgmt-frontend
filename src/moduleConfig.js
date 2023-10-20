@@ -13,7 +13,8 @@ export const module = {
 			updatePermissionStatus: "1.0/permisisons/status"
 		},
 		user : {
-			getSubUser:"1.0/users/getUsers",
+			getSubUsers:"1.0/users/getUsers",
+			UpdateSubUser:"1.0/users/updateUser",
 			saveSubUser:"1.0/users/createUser",
 			deletePermission: "1.0/permisisons/deletePermission",
 			updatePermissionStatus: "1.0/permisisons/status"

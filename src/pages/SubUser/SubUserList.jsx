@@ -45,7 +45,7 @@ const SubUserList = () => {
           <div className="template-demo">
             <button type="button" onClick={()=>{}} className={`me-5 btn ${btnClass} btn-md`}>{user?.isDisable ?"Enable":"Disable"}</button>
             <button type="button" onClick={() => {}} className="btn btn-danger btn-md">Delete</button>
-            <Link className="btn btn-warning btn-md" state={user} to={`/role/edit/${user.subUserId}`}>Edit</Link>
+            <Link className="btn btn-warning btn-md" state={user} to={`/subUser/edit/${user.subUserId}`}>Edit</Link>
           </div>
         )
       };

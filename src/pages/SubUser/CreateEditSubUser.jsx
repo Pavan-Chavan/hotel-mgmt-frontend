@@ -4,7 +4,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { postPermission, postRole, postSubUser, updateUserFields } from '../../store/slice/SubUserSlic';
 import { getRolesData } from '../../api/role';
 import { getPermissionData } from '../../api/permission';
-import { createSubUser } from '../../api/subuser';
+import { UpdateSubUser, createSubUser, getSubUserData } from '../../api/subuser';
+import { TransformToSubUserData } from '../../Utilities/utilities';
 
 export default function CreateEditSubUser() {
   const location = useLocation();
@@ -26,9 +27,12 @@ export default function CreateEditSubUser() {
       dispatchAction(postPermission(await getPermissionData()));
     }
 
+    async function getSubUser() {
+      dispatchAction(postSubUser(TransformToSubUserData(await getSubUserData(subUserId))));
+    }
     fetchRoleAndPermission();
     if(mode === "edit") {
-      dispatchAction(postSubUser(subUserdata));
+      getSubUser()
     } else {
 
     }
@@ -47,7 +51,7 @@ export default function CreateEditSubUser() {
   }
 
   const updatePermissions = (e) => {
-    let value = subUser.subUserBody.permissionsIds || [];
+    let value = subUser.subUserBody?.permissionsIds || [];
     const field = e.target.name;
     if (e.target.value === "true") {
       const index = value.indexOf(Number(e.target.id));
@@ -66,7 +70,7 @@ export default function CreateEditSubUser() {
         <label>Select Permissions</label>
         <div onClick={updatePermissions}>
           {subUser.permissions.map((permission)=>{
-            const selected = subUser.subUserBody.permissionsIds?.includes(permission.permissionId);
+            const selected = subUser.subUserBody?.permissionsIds?.includes(permission.permissionId);
             const btnClass =  selected ? "btn-success" :"btn-danger"
             return <button type="button" name="permissionsIds" id={permission.permissionId} value={selected} className={`btn ${btnClass} btn-md mr-2`}>{permission.permissionName}</button>
           })}
@@ -80,7 +84,7 @@ export default function CreateEditSubUser() {
     return (
       <div class="form-group">
         <label for="exampleSelectGender">Status</label>
-        <select class="form-control" name="isDisable" value={subUser.subUserBody.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+        <select class="form-control" name="isDisable" value={subUser.subUserBody?.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
           <option value={true}>Enable</option>
           <option value={false}>Disable</option>
         </select>
@@ -91,8 +95,12 @@ export default function CreateEditSubUser() {
     dispatchAction(updateUserFields({value,field}));
   }
 
-  const savePermission = () => {
-    createSubUser(subUser.subUserBody);
+  const saveSubUser = () => {
+    if (mode === "edit") {
+      UpdateSubUser(subUser.subUserBody);
+    } else {
+      createSubUser(subUser.subUserBody);
+    }
     console.log(subUser.subUserBody);
     navigate("/subusers");
   }
@@ -110,7 +118,7 @@ export default function CreateEditSubUser() {
                 <form className="forms-sample">
                   <div className="form-group">
                     <label for="userName">User Name</label>
-                    <input type="text" name="username" className="form-control" onChange={(e)=>{updateField(e.target.value,e.target.name)}} value={subUser.subUserBody.username} id="userName"  placeholder="User Name"/>
+                    <input type="text" name="username" className="form-control" onChange={(e)=>{updateField(e.target.value,e.target.name)}} value={subUser.subUserBody?.username} id="userName"  placeholder="User Name"/>
                   </div>
                   <div className="form-group">
                     <label for="roleName">Role Id</label>
@@ -122,7 +130,7 @@ export default function CreateEditSubUser() {
                   </div>
                   {renderPermissions()}
                   {renderIsDisable()}
-                  <button type="submit" onClick={() => {savePermission()}}className="btn btn-primary mr-2">Submit</button>
+                  <button type="submit" onClick={() => {saveSubUser()}}className="btn btn-primary mr-2">Submit</button>
                   <Link className="btn btn-dark" to={"/role"}>Cancle</Link>
                 </form>
               </div>
