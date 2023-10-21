@@ -44,3 +44,20 @@ export const getSubUserData = (id) => {
 	  console.log(err);
 	}
 }
+
+export const deleteSubUserApi = (id) => {
+  try {
+    if(module.demoMode) return "Cannot delte its demo mode";
+		const res = Promise.resolve(
+      axios.delete(module.API.user.deleteSubUser + `?subUserId=${id}`)
+      .then((res) => {
+        return res.data;
+      }, (res) => {
+        return res.message;
+      })
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
+}

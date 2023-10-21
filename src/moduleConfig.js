@@ -16,8 +16,9 @@ export const module = {
 			getSubUsers:"1.0/users/getUsers",
 			UpdateSubUser:"1.0/users/updateUser",
 			saveSubUser:"1.0/users/createUser",
-			deletePermission: "1.0/permisisons/deletePermission",
-			updatePermissionStatus: "1.0/permisisons/status"
+			deleteSubUser: "1.0/users/deleteSubUser",
+			updatePermissionStatus: "1.0/permisisons/status",
+
 		}
 	},
 	host : "http://localhost:8083",

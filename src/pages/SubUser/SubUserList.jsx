@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getSubUsers } from '../../api/subuser';
+import { deleteSubUserApi, getSubUsers } from '../../api/subuser';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { render } from '@testing-library/react';
@@ -39,12 +39,18 @@ const SubUserList = () => {
         return (<div>{role.roleName}</div>);
       };
 
+      const deleteSubUser = async (id) => {
+        const resMsg = await deleteSubUserApi(id);
+        window.alert(resMsg);
+        window.location.reload();
+      }
+
       const renderActionBtn = (user) => {
         const btnClass = user?.isDisable ? "btn-success" : "btn-danger";
         return (
           <div className="template-demo">
             <button type="button" onClick={()=>{}} className={`me-5 btn ${btnClass} btn-md`}>{user?.isDisable ?"Enable":"Disable"}</button>
-            <button type="button" onClick={() => {}} className="btn btn-danger btn-md">Delete</button>
+            <button type="button" onClick={() => {deleteSubUser(user.subUserId)}} className="btn btn-danger btn-md">Delete</button>
             <Link className="btn btn-warning btn-md" state={user} to={`/subUser/edit/${user.subUserId}`}>Edit</Link>
           </div>
         )
