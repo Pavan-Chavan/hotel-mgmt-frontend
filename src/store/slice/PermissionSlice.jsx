@@ -10,7 +10,7 @@ const permissionSlice = createSlice({
       state.permission={...action.payload};
     },
     updatePermission(state,action) {
-      state.role[action.payload.field] = action.payload.value;
+      state.permission[action.payload.field] = action.payload.value;
     },
     resetState(state,action) {
       state.permission = action.payload;
