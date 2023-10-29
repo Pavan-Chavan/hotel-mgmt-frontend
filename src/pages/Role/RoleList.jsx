@@ -1,42 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { RolelistData } from "./roleMockDataList";
+import { deleteRole, getRolesData, updateRoleStatus } from "../../api/role";
 
-const renderRoleList = () => {
-  return RolelistData.data.map((role) => 
-  { 
-    return <>
-      <tr>
-      <td>{role.name}</td>
-      <td>{role.date}</td>
-      <td>
-        <div class="template-demo">
-          <button type="button" class="me-5 btn btn-success btn-md">{role.isDisable ?"Enable":"Disable"}</button>
-          <button type="button" class="btn btn-danger btn-md">Delete</button>
-          <Link className="btn btn-warning btn-md" state={role} to={`/role/edit/${role.roleId}`}>Edit</Link>
-        </div>
-      </td>
-    </tr>
-    </>
-  })
+const renderRoleList = (Roles,isLoading) => {
+
+  const deleteRoleId = async (id) => {
+    const resMsg = await deleteRole(id);
+    window.alert(resMsg);
+    window.location.reload();
+  }
+
+  const updateRoleId = async (id,status) => {
+    const resMsg = await updateRoleStatus(id,status);
+    window.alert(resMsg);
+    window.location.reload();
+  };
+
+  if (isLoading) {
+    return <>loading...</>
+  } else {
+    return Roles?.map((role) => 
+    { 
+      const btnClass = role?.isDisable ? "btn-success" : "btn-danger";
+      const date = new Date(role?.createdAt).toDateString();
+      return <>
+        <tr>
+        <td>{role?.roleName}</td>
+        <td>{date}</td>
+        <td>
+          <div className="template-demo">
+            <button type="button" onClick={()=>{updateRoleId(role?.roleId,role?.isDisable)}} className={`me-5 btn ${btnClass} btn-md`}>{role?.isDisable ?"Enable":"Disable"}</button>
+            <button type="button" onClick={() => {deleteRoleId(role?.roleId)}} className="btn btn-danger btn-md">Delete</button>
+            <Link className="btn btn-warning btn-md" state={role} to={`/role/edit/${role.roleId}`}>Edit</Link>
+          </div>
+        </td>
+      </tr>
+      </>
+    })
+  }
 }
 
 const RoleList = () => {
+  const [Roles, setRoles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(()=>{
+    async function fetchRoles() {
+      setIsLoading(true)
+      setRoles(await getRolesData());
+      setIsLoading(false);
+    }
+    fetchRoles();
+  },[]);
+
   return (
-    <div class="main-panel">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h3 class="page-title"> Roles </h3>
+    <div className="main-panel">
+      <div className="content-wrapper">
+        <div className="page-header">
+          <h3 className="page-title"> Roles </h3>
           <nav aria-label="breadcrumb">
-            <Link class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" to="/role/create">+ Add New Role</Link>
+            <Link className="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" to="/role/create">+ Add New Role</Link>
           </nav>
         </div>
-        <div class="row w-100">
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
+        <div className="row w-100">
+          <div className="col-lg-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <div className="table-responsive">
+                  <table className="table">
                     <thead>
                       <tr>
                         <th>Role Name</th>
@@ -45,7 +76,7 @@ const RoleList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {renderRoleList()}
+                      {renderRoleList(Roles,isLoading)}
                     </tbody>
                   </table>
                 </div>

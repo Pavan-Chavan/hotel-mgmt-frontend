@@ -1,12 +1,9 @@
 import Register from "./pages/Register";
-import TestLogin from "./pages/TestLogin"
 import Write from "./pages/Write";
 import Dashboard from "./pages/Dashboard";
 import Single from "./pages/Single";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import AllMovies from "./pages/AllMovies";
-import Test from "./pages/Test";
 import SideBar from "./components/SideBar";
 import Login from "./pages/Login";
 import {Outlet} from "react-router-dom";
@@ -14,6 +11,8 @@ import RoleList from "./pages/Role/RoleList";
 import CreateEditRole from "./pages/Role/CreateEditRole";
 import PermissionList from "./pages/Permission/PermissionList";
 import CreateEditPermission from "./pages/Permission/CreateEditPermission";
+import SubUserList from "./pages/SubUser/SubUserList";
+import CreateEditSubUser from "./pages/SubUser/CreateEditSubUser";
 
 const Layout = () => {
   return (
@@ -57,7 +56,7 @@ export const route = {
 			path: "/permission/:mode",
 			element: <CreateEditPermission />,
 		},
-    {
+    	{
 			path: "/permission/:mode/:roleId",
 			element: <CreateEditPermission />,
 		},
@@ -80,6 +79,19 @@ export const route = {
 		{
 			path: "/login",
 			element: <Login />,
+		},
+		// sub user routes
+		{
+			path: "/subusers",
+			element: <SubUserList />,
+		},
+		{
+			path: "/subUser/:mode",
+			element: <CreateEditSubUser />,
+		},
+    	{
+			path: "/subUser/:mode/:subUserId",
+			element: <CreateEditSubUser />,
 		}
 	]
 };
