@@ -13,6 +13,7 @@ import PermissionList from "./pages/Permission/PermissionList";
 import CreateEditPermission from "./pages/Permission/CreateEditPermission";
 import SubUserList from "./pages/SubUser/SubUserList";
 import CreateEditSubUser from "./pages/SubUser/CreateEditSubUser";
+import CategoryList from "./pages/Category/CategoryList";
 
 const Layout = () => {
   return (
@@ -92,6 +93,10 @@ export const route = {
     	{
 			path: "/subUser/:mode/:subUserId",
 			element: <CreateEditSubUser />,
+		},
+		{
+			path: "/category",
+			element: <CategoryList/>,
 		}
 	]
 };
