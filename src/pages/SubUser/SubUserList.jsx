@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { deleteSubUserApi, getSubUsers } from '../../api/subuser';
+import { deleteSubUserApi, getSubUsers, updateSubUser } from '../../api/subuser';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { render } from '@testing-library/react';
@@ -45,11 +45,17 @@ const SubUserList = () => {
         window.location.reload();
       }
 
+      const updateSubUserStatus = async (id,status) => {
+        const resMsg = await updateSubUser(id,status);
+        window.alert(resMsg);
+        window.location.reload();
+      };
+
       const renderActionBtn = (user) => {
         const btnClass = user?.isDisable ? "btn-success" : "btn-danger";
         return (
           <div className="template-demo">
-            <button type="button" onClick={()=>{}} className={`me-5 btn ${btnClass} btn-md`}>{user?.isDisable ?"Enable":"Disable"}</button>
+            <button type="button" onClick={()=>{updateSubUserStatus(user.subUserId,user?.isDisable)}} className={`me-5 btn ${btnClass} btn-md`}>{user?.isDisable ?"Enable":"Disable"}</button>
             <button type="button" onClick={() => {deleteSubUser(user.subUserId)}} className="btn btn-danger btn-md">Delete</button>
             <Link className="btn btn-warning btn-md" state={user} to={`/subUser/edit/${user.subUserId}`}>Edit</Link>
           </div>

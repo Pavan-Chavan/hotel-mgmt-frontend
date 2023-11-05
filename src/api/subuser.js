@@ -61,3 +61,21 @@ export const deleteSubUserApi = (id) => {
     return error;
   }
 }
+
+export const updateSubUser = (id,status) => {
+  try {
+    if(module.demoMode) return "Cannot update Status, demo mode";
+    const value = status ? "enable" : "disable";
+		const res = Promise.resolve(
+      axios.put(module.API.user.updateSubUserStatus + `?status=${value}&subUserId=${id}`)
+      .then((res) => {
+        return res.data;
+      }, (res) => {
+        return res.message;
+      })
+    );
+    return res;
+  } catch (error) {
+    return error;
+  }
+}
