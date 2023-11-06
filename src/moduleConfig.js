@@ -17,10 +17,17 @@ export const module = {
 			UpdateSubUser:"1.0/users/updateUser",
 			saveSubUser:"1.0/users/createUser",
 			deleteSubUser: "1.0/users/deleteSubUser",
-			updatePermissionStatus: "1.0/permisisons/status",
+			updatePermissionStatus: "1.0/permisisons/status" // TODO check user status update API
 
+		},
+		category :{
+			getCategory: "1.0/category/getCategories",
+			updateCategory:"",
+			saveCategory:"",
+			deleteCategory:"1.0/category/deleteCategory",
+			updateCategoryStatus:"1.0/category/status"
 		}
 	},
 	host : "http://localhost:8083",
-	demoMode: false
+	demoMode: true
 }
