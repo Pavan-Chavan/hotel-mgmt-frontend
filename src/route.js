@@ -14,6 +14,7 @@ import CreateEditPermission from "./pages/Permission/CreateEditPermission";
 import SubUserList from "./pages/SubUser/SubUserList";
 import CreateEditSubUser from "./pages/SubUser/CreateEditSubUser";
 import CategoryList from "./pages/Category/CategoryList";
+import Dishes from "./pages/Dishes/Dishes";
 
 const Layout = () => {
   return (
@@ -97,6 +98,10 @@ export const route = {
 		{
 			path: "/category",
 			element: <CategoryList/>,
+		},
+		{
+			path: "/dishes",
+			element: <Dishes/>,
 		}
 	]
 };

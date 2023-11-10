@@ -26,6 +26,13 @@ export const module = {
 			saveCategory:"",
 			deleteCategory:"1.0/category/deleteCategory",
 			updateCategoryStatus:"1.0/category/status"
+		},
+		dishes :{
+			getDishes:"1.0/dishes/getDishes",
+			updateDish:"",
+			saveDish:"",
+			deleteDish:"1.0/dishes/deleteDish",
+			updateDishStatus:"1.0/dishes/status"
 		}
 	},
 	host : "http://localhost:8083",
