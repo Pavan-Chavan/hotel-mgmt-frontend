@@ -13,7 +13,7 @@ export const getDishesData = () => {
 	}
 }
 
-export const updateDishStatus = (id,status) => {
+export const updateDishStatusApi = (id,status) => {
   try {
     if(module.demoMode) return "Cannot update Status, demo mode";
     const value = status ? "enable" : "disable";
@@ -45,4 +45,26 @@ export const deleteDish = (id) => {
   } catch (error) {
     return error;
   }
+}
+
+export const createDish = (options) => {
+	try {
+    if(module.demoMode) return "Cannot Create its demo mode";
+		const res = axios.post(module.API.dishes.saveDish,options)
+			.then((res)=>{return res.data});
+		return res;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+export const updateDish = (options) => {
+	try {
+    if(module.demoMode) return "Cannot Update its demo mode";
+		const res = axios.put(module.API.dishes.updateDish,options)
+			.then((res)=>{return res.data});
+		return res;
+	} catch (err) {
+		console.error(err);
+	}
 }

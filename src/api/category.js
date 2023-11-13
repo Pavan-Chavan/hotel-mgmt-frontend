@@ -46,3 +46,25 @@ export const deleteCategory = (id) => {
     return error;
   }
 }
+
+export const createCategory = (options) => {
+	try {
+    if(module.demoMode) return "Cannot Create its demo mode";
+		const res = axios.post(module.API.category.saveCategory,options)
+			.then((res)=>{return res.data});
+		return res;
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+export const updateCategory = (options) => {
+	try {
+    if(module.demoMode) return "Cannot Update its demo mode";
+		const res = axios.put(module.API.category.updateCategory,options)
+			.then((res)=>{return res.data});
+		return res;
+	} catch (err) {
+		console.error(err);
+	}
+}

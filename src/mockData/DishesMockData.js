@@ -9,6 +9,6 @@ export const dishesData= [
 		name:"matarpanner",
 		dishId:2,
 		createdAt:"12/12/2023",
-		isDisable:true
+		isDisable:false
 	}
 ]

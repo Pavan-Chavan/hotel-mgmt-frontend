@@ -22,17 +22,17 @@ export const module = {
 		},
 		category :{
 			getCategory: "1.0/category/getCategories",
-			updateCategory:"",
-			saveCategory:"",
+			updateCategory:"1.0/category/updateCategory",
+			saveCategory:"1.0/category/saveCategory",
 			deleteCategory:"1.0/category/deleteCategory",
 			updateCategoryStatus:"1.0/category/status"
 		},
 		dishes :{
-			getDishes:"1.0/dishes/getDishes",
-			updateDish:"",
-			saveDish:"",
-			deleteDish:"1.0/dishes/deleteDish",
-			updateDishStatus:"1.0/dishes/status"
+			getDishes:"1.0/foodItem/getFoodItem",
+			updateDish:"1.0/foodItem/updateFoodItem",
+			saveDish:"1.0/foodItem/saveFoodItem",
+			deleteDish:"1.0/foodItem/deleteFoodItemId",
+			updateDishStatus:"1.0/foodItem/status"
 		}
 	},
 	host : "http://localhost:8083",

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { deleteDish, getDishesData, updateDishStatus } from "../../api/dishes";
+import { deleteDish, getDishesData, updateDishStatusApi } from "../../api/dishes";
 
 const Dishes = () => {
 
@@ -19,7 +19,7 @@ const Dishes = () => {
   },[]);
 
   const updateDishStatus = async (id,status) => {
-    const resMsg = await updateDishStatus(id,status);
+    const resMsg = await updateDishStatusApi(id,status);
     window.alert(resMsg);
     window.location.reload();
   };
@@ -56,7 +56,7 @@ const Dishes = () => {
         <div className="page-header">
           <h3 className="page-title"> Dishes </h3>
           <nav aria-label="breadcrumb">
-            <Link className="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" to="/category/create">+ Add New Categories</Link>
+            <Link className="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" to="/dishes/create">+ Add New Dishes</Link>
           </nav>
         </div>
         <div className="row w-100">
