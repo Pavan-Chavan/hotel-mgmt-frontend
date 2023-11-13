@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory, resetState, updateCategory } from "../../store/slice/CategorySlice";
-import { createCategory } from "../../api/category";
+import { createCategory, updateCategoryAPI, updateCategoryStatus } from "../../api/category";
 
 const renderFormTitle = (mode) => {
   if(mode === "edit") {
@@ -38,7 +38,7 @@ export default function CreateEditCategory() {
 
   const postCategory = () => {
     if(mode === "edit") {
-      updateCategory(CategoryData.category);
+      updateCategoryAPI(CategoryData.category);
     } else {
       createCategory(CategoryData.category);
     }

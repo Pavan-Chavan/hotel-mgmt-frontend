@@ -15,10 +15,10 @@ export const getDishesData = () => {
 
 export const updateDishStatusApi = (id,status) => {
   try {
-    if(module.demoMode) return "Cannot update Status, demo mode";
+    if(true) return "updated dish api is not available";
     const value = status ? "enable" : "disable";
 		const res = Promise.resolve(
-      axios.put(module.API.dishes.updateDishStatus + `?dishId=${id}&status=${value}`)
+      axios.put(module.API.dishes.updateDishStatus + `?foodItemId=${id}&status=${value}`)
       .then((res) => {
         return res.data;
       }, (res) => {
@@ -34,9 +34,9 @@ export const deleteDish = (id) => {
   try {
     if(module.demoMode) return "Cannot delete its demo mode";
 		const res = Promise.resolve(
-      axios.delete(module.API.dishes.deleteDish + `?dishId=${id}`)
+      axios.delete(module.API.dishes.deleteDish + `?foodItemId=${id}`)
       .then((res) => {
-        return res.data;
+        return res.data.responseMessage;
       }, (res) => {
         return res.message;
       })

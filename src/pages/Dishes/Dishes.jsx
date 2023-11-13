@@ -40,9 +40,9 @@ const Dishes = () => {
         <td>{dishes.createdAt}</td>
         <td>
           <div className="template-demo">
-            <button onClick={()=>{updateDishStatus(dishes?.dishId,dishes?.isDisable)}} type="button" className={`me-5 btn ${btnClass} btn-md`}>{dishes.isDisable ?"Enable":"Disable"}</button>
-            <button type="button" onClick={() => {deleteDishId(dishes?.dishId)}} className="btn btn-danger btn-md">Delete</button>
-            <Link className="btn btn-warning btn-md" state={dishes} to={`/dishes/edit/${dishes.dishId}`}>Edit</Link>
+            <button onClick={()=>{updateDishStatus(dishes?.foodItemId,dishes?.isDisable)}} type="button" className={`me-5 btn ${btnClass} btn-md`}>{dishes.isDisable ?"Enable":"Disable"}</button>
+            <button type="button" onClick={() => {deleteDishId(dishes?.foodItemId)}} className="btn btn-danger btn-md">Delete</button>
+            <Link className="btn btn-warning btn-md" state={dishes} to={`/dishes/edit/${dishes.foodItemId}`}>Edit</Link>
           </div>
         </td>
       </tr>

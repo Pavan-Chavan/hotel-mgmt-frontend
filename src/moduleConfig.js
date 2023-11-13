@@ -28,7 +28,7 @@ export const module = {
 			updateCategoryStatus:"1.0/category/status"
 		},
 		dishes :{
-			getDishes:"1.0/foodItem/getFoodItem",
+			getDishes:"1.0/foodItem/getFoodItems",
 			updateDish:"1.0/foodItem/updateFoodItem",
 			saveDish:"1.0/foodItem/saveFoodItem",
 			deleteDish:"1.0/foodItem/deleteFoodItemId",
@@ -36,5 +36,5 @@ export const module = {
 		}
 	},
 	host : "http://localhost:8083",
-	demoMode: true
+	demoMode: false
 }
