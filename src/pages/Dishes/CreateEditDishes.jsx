@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDishes, resetState, updateDishes } from "../../store/slice/DishesSlice";
+import { getDishes, loadCategoriesData, resetState, updateDishes } from "../../store/slice/DishesSlice";
 import { createDish, updateDish } from "../../api/dishes";
+import { getCategoryData } from "../../api/category";
+import Loader from "../../components/Loader";
+import { async } from "q";
 
 const renderFormTitle = (mode) => {
   if(mode === "edit") {
@@ -21,11 +24,16 @@ export default function CreateEditDishes() {
   const navigate = useNavigate();
 
   useEffect(()=>{
+    async function loadCategoriesDataApi () {
+      const tablesData = await getCategoryData();
+      dispatchAction(loadCategoriesData(tablesData));
+    }
     if(mode === "edit") {
       loadDishesData();
     } else {
       dispatchAction(resetState({}));
     }
+    loadCategoriesDataApi();
   },[]);
 
   const loadDishesData = () => {
@@ -45,7 +53,8 @@ export default function CreateEditDishes() {
     navigate("/dishes");
   }
 
-  return (
+  const renderDishesForm = () =>{
+    return (
     <div className="main-panel">
       <div className="content-wrapper">
         <div className="page-header">
@@ -62,6 +71,12 @@ export default function CreateEditDishes() {
                     <input type="text" name="name" className="form-control" value={dishesData?.dishes.name || ""} id="permissionName" onChange={(e)=>{updateField(e.target.value,e.target.name)}} placeholder="Dish Name"/>
                   </div>
                   <div class="form-group">
+                    <label for="exampleSelectGender">Category</label>
+                    <select class="form-control" name="isDisable" value={dishesData?.dishes.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+                      {dishesData.categories.map((category)=>(<option value={category === dishesData?.dishes?.category }>{category.name}</option>))}
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="exampleSelectGender">Status</label>
                     <select class="form-control" name="isDisable" value={dishesData?.dishes.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
                       <option value={true}>Disable</option>
@@ -76,6 +91,12 @@ export default function CreateEditDishes() {
             </div>
             </div>
       </div>
-    </div>
+    </div>)
+  }
+  return (
+    <>
+      {dishesData.isLoading && <Loader/>}
+      {!dishesData.isLoading && renderDishesForm()}
+    </>
   )
 }

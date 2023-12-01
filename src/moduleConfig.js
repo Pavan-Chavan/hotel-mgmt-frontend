@@ -33,8 +33,14 @@ export const module = {
 			saveDish:"1.0/foodItem/saveFoodItem",
 			deleteDish:"1.0/foodItem/deleteFoodItemId",
 			updateDishStatus:"1.0/foodItem/status"
+		},
+		table : {
+			getTableData:"1.0/table/getTables"
 		}
 	},
-	host : "http://localhost:8083",
+	WEB_SOCKET : {
+		test:"http://localhost:8084/ws"
+	},
+	host : "http://localhost:8084",
 	demoMode: false
 }

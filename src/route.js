@@ -17,6 +17,7 @@ import CategoryList from "./pages/Category/CategoryList";
 import Dishes from "./pages/Dishes/Dishes";
 import CreateEditDishes from "./pages/Dishes/CreateEditDishes";
 import CreateEditCategory from "./pages/Category/CreateEditCategory";
+import TableOrderList from "./pages/Dining/TableOrderList";
 
 const Layout = () => {
   return (
@@ -120,6 +121,25 @@ export const route = {
 		{
 			path: "/dishes/edit/:dishId",
 			element: <CreateEditDishes/>
-		}
+		},
+		{
+			path: "/subUser/:mode/:subUserId",
+			element: <CreateEditSubUser />,
+		},	
+		{
+			path: "/dining/table",
+			element: <TableOrderList />,
+		}	
+		// {
+		// 	path: "/dining",
+		// 	element: <Layout />,
+		// 	children: [
+		// 		{
+		// 			path: "/table",
+		// 			element: <TableOrderList />
+		// 		}
+		// 	]
+		// }
+		
 	]
 };
