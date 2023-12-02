@@ -1,6 +1,7 @@
 import axios from "axios";
 import { dishesData } from "../mockData/DishesMockData";
 import { module } from "../moduleConfig";
+import { createDishesDTO } from "../Utilities/utilities";
 
 export const getDishesData = () => {
 	try {
@@ -50,7 +51,7 @@ export const deleteDish = (id) => {
 export const createDish = (options) => {
 	try {
     if(module.demoMode) return "Cannot Create its demo mode";
-		const res = axios.post(module.API.dishes.saveDish,options)
+		const res = axios.post(module.API.dishes.saveDish, createDishesDTO(options))
 			.then((res)=>{return res.data});
 		return res;
 	} catch (err) {
@@ -61,7 +62,7 @@ export const createDish = (options) => {
 export const updateDish = (options) => {
 	try {
     if(module.demoMode) return "Cannot Update its demo mode";
-		const res = axios.put(module.API.dishes.updateDish,options)
+		const res = axios.put(module.API.dishes.updateDish,createDishesDTO(options))
 			.then((res)=>{return res.data});
 		return res;
 	} catch (err) {

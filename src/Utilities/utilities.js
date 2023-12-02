@@ -15,3 +15,13 @@ export const transformCreateOptionsCategory = (data) => {
   }
   return category;
 }
+
+export const createDishesDTO = (data) => {
+	let temp = {
+		categoryId: data.categoryId,
+		foodItemId: data.foodItemId,
+		foodItemName: data.name,
+		foodItemPrice: data.price
+	};
+	return temp;
+}

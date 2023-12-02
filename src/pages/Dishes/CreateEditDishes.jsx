@@ -72,8 +72,9 @@ export default function CreateEditDishes() {
                   </div>
                   <div class="form-group">
                     <label for="exampleSelectGender">Category</label>
-                    <select class="form-control" name="isDisable" value={dishesData?.dishes.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
-                      {dishesData.categories.map((category)=>(<option value={category === dishesData?.dishes?.category }>{category.name}</option>))}
+                    <select class="form-control" name="categoryId" value={dishesData?.dishes.isDisable} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
+                    <option value="1">Please select category</option>
+                      {dishesData.categories.map((category)=>(<option value={category.categoryId}>{category.name}</option>))}
                     </select>
                   </div>
                   <div class="form-group">
