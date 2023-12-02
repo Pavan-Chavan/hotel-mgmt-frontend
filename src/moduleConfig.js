@@ -17,10 +17,30 @@ export const module = {
 			UpdateSubUser:"1.0/users/updateUser",
 			saveSubUser:"1.0/users/createUser",
 			deleteSubUser: "1.0/users/deleteSubUser",
-			updatePermissionStatus: "1.0/permisisons/status",
+			updatePermissionStatus: "1.0/permisisons/status" // TODO check user status update API
 
+		},
+		category :{
+			getCategory: "1.0/category/getCategories",
+			updateCategory:"1.0/category/updateCategory",
+			saveCategory:"1.0/category/saveCategory",
+			deleteCategory:"1.0/category/deleteCategory",
+			updateCategoryStatus:"1.0/category/status"
+		},
+		dishes :{
+			getDishes:"1.0/foodItem/getFoodItems",
+			updateDish:"1.0/foodItem/updateFoodItem",
+			saveDish:"1.0/foodItem/saveFoodItem",
+			deleteDish:"1.0/foodItem/deleteFoodItemId",
+			updateDishStatus:"1.0/foodItem/status"
+		},
+		table : {
+			getTableData:"1.0/table/getTables"
 		}
 	},
-	host : "http://localhost:8083",
+	WEB_SOCKET : {
+		test:"http://localhost:8084/ws"
+	},
+	host : "http://localhost:8084",
 	demoMode: false
 }

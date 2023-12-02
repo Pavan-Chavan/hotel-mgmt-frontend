@@ -23,11 +23,41 @@ const renderList = (currentUser) => {
     </Link>
   </li>
   <li class="nav-item menu-items">
+          <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <span class="menu-icon">
+              <i class="mdi mdi-security"></i>
+            </span>
+            <span class="menu-title">Dining</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"><Link className="nav-link" to="/dining/table"><span class="menu-icon"><i class="mdi mdi-account-key"></i></span><span class="menu-title">Table</span></Link></li>
+            </ul>
+          </div>
+        </li>
+  <li class="nav-item menu-items">
     <Link className="nav-link" to="/subusers">
       <span class="menu-icon">
         <i class="mdi mdi-account-key"></i>
       </span>
       <span class="menu-title">Sub User</span>
+    </Link>
+  </li>
+  <li class="nav-item menu-items">
+    <Link className="nav-link" to="/category">
+      <span class="menu-icon">
+        <i class="mdi mdi-account-key"></i>
+      </span>
+      <span class="menu-title">Category</span>
+    </Link>
+  </li>
+  <li class="nav-item menu-items">
+    <Link className="nav-link" to="/dishes">
+      <span class="menu-icon">
+        <i class="mdi mdi-account-key"></i>
+      </span>
+      <span class="menu-title">Dishes</span>
     </Link>
   </li>
   <li class="nav-item menu-items">

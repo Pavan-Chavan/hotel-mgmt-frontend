@@ -7,3 +7,21 @@ export const TransformToSubUserData = (data) => {
 	subUser.subUserId = data.subUserId;
 	return subUser;
 }
+
+export const transformCreateOptionsCategory = (data) => {
+  let category = {
+    categoryName:data.name,
+    categoryId: data?.categoryId
+  }
+  return category;
+}
+
+export const createDishesDTO = (data) => {
+	let temp = {
+		categoryId: data.categoryId,
+		foodItemId: data.foodItemId,
+		foodItemName: data.name,
+		foodItemPrice: data.price
+	};
+	return temp;
+}

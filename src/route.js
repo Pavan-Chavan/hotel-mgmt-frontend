@@ -13,6 +13,11 @@ import PermissionList from "./pages/Permission/PermissionList";
 import CreateEditPermission from "./pages/Permission/CreateEditPermission";
 import SubUserList from "./pages/SubUser/SubUserList";
 import CreateEditSubUser from "./pages/SubUser/CreateEditSubUser";
+import CategoryList from "./pages/Category/CategoryList";
+import Dishes from "./pages/Dishes/Dishes";
+import CreateEditDishes from "./pages/Dishes/CreateEditDishes";
+import CreateEditCategory from "./pages/Category/CreateEditCategory";
+import TableOrderList from "./pages/Dining/TableOrderList";
 
 const Layout = () => {
   return (
@@ -92,6 +97,49 @@ export const route = {
     	{
 			path: "/subUser/:mode/:subUserId",
 			element: <CreateEditSubUser />,
-		}
+		},
+		{
+			path: "/category",
+			element: <CategoryList/>,
+		},
+		{
+			path: "/category/create",
+			element: <CreateEditCategory/>
+		},
+		{
+			path: "/category/edit/:categoryId",
+			element: <CreateEditCategory/>
+		},
+		{
+			path: "/dishes",
+			element: <Dishes/>,
+		},
+		{
+			path: "/dishes/create",
+			element: <CreateEditDishes/>
+		},
+		{
+			path: "/dishes/edit/:dishId",
+			element: <CreateEditDishes/>
+		},
+		{
+			path: "/subUser/:mode/:subUserId",
+			element: <CreateEditSubUser />,
+		},	
+		{
+			path: "/dining/table",
+			element: <TableOrderList />,
+		}	
+		// {
+		// 	path: "/dining",
+		// 	element: <Layout />,
+		// 	children: [
+		// 		{
+		// 			path: "/table",
+		// 			element: <TableOrderList />
+		// 		}
+		// 	]
+		// }
+		
 	]
 };
