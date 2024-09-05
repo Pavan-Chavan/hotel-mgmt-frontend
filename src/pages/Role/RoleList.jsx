@@ -43,11 +43,21 @@ const renderRoleList = (Roles,isLoading) => {
 const RoleList = () => {
   const [Roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError,setIsError] = useState("");
 
   useEffect(()=>{
     async function fetchRoles() {
-      setIsLoading(true)
-      setRoles(await getRolesData());
+      setIsLoading(true);
+      const res = await getRolesData();
+      if(res.status == 200) {
+        setRoles(res.data.response);
+      } else {
+        setIsError(res.response.data);
+        setInterval(()=>{
+          setIsError("");
+        },3000);
+        console.log();
+      }
       setIsLoading(false);
     }
     fetchRoles();
@@ -67,6 +77,7 @@ const RoleList = () => {
             <div className="card">
               <div className="card-body">
                 <div className="table-responsive">
+                {isError && <div class="alert alert-info text-dark" role="alert">{isError}</div>}
                   <table className="table">
                     <thead>
                       <tr>

@@ -10,13 +10,16 @@ export const AuthContexProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    setCurrentUser({username: "test",password: "test"});
-    const res = await axios.post(`${API_HEADER}auth/login`, inputs);
+    const res = await axios.post(`${API_HEADER}auth/signin`, inputs);
     console.log("==>"+JSON.stringify(res.data.token));
+    setCurrentUser({username: res.data?.username, roles:res.data.role, userId: res.data.id});
+    sessionStorage.setItem("Authorization",`Bearer ${res.data.token}`)
+    return res;
   };
 
   const logout = async (inputs) => {
     setCurrentUser(null);
+    sessionStorage.removeItem("Authorization");
     await axios.post(`${API_HEADER}auth/logout`);
   };
 

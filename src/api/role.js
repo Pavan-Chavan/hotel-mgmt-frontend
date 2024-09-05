@@ -3,13 +3,19 @@ import { module } from "../moduleConfig";
 import { RolelistData } from "../mockData/roleMockDataList";
 
 export const getRolesData = () => {
+  axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization');
 	try {
 		if(module.demoMode) return RolelistData;
 		const res = axios.get(module.API.role.getRoles)
-			.then((res) => {return res.data});
+			.then((res) => {
+        return res;
+      }).catch((res)=>{
+        console.log(res);
+        return res;
+      });
 		return res;
 	} catch (err) {
-		console.log(err);
+		console.log("hello catch" +err.response.data);
 	}
 }
 
