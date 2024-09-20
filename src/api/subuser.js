@@ -3,6 +3,8 @@ import { RolelistData } from "../mockData/roleMockDataList";
 import { module } from "../moduleConfig";
 import { SUBUSERDATA } from "../constants/constants";
 
+axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization');
+
 export const getSubUsers = () => {
 	try {
 		if(module.demoMode) return RolelistData;
@@ -38,7 +40,7 @@ export const getSubUserData = (id) => {
 	try {
 	  if(module.demoMode) return;
 	  const res = axios.get(module.API.user.getSubUsers + `?subUserId=${id}`)
-		.then((res) => {return res.data},()=>{return SUBUSERDATA});
+		.then((res) => {return res},()=>{return res});
 		return res;
 	} catch (err) {
 	  console.log(err);

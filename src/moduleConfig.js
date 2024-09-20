@@ -7,10 +7,10 @@ export const module = {
 			updateRole: "1.0/roles/status"
 		},
 		permission : {
-			getPermission:"1.0/permisisons/getPermissions",
-			savePermission:"1.0/permisisons/savePermission",
-			deletePermission: "1.0/permisisons/deletePermission",
-			updatePermissionStatus: "1.0/permisisons/status"
+			getPermission:"1.0/permissions/getPermissions",
+			savePermission:"1.0/permissions/savePermission",
+			deletePermission: "1.0/permissions/deletePermission",
+			updatePermissionStatus: "1.0/permissions/status"
 		},
 		user : {
 			getSubUsers:"1.0/users/getUsers",

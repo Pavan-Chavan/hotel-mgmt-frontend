@@ -1,11 +1,13 @@
 import axios from "axios";
 import { module } from "../moduleConfig";
 
+axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization');
+
 export const getPermissionData = () => {
 	try {
 		// if(module.demoMode) return RolelistData;
 		const res = axios.get(module.API.permission.getPermission)
-			.then((res) => {return res.data});
+			.then((res) => {return res.data.response});
 		return res;
 	} catch (err) {
 		console.log(err);
@@ -29,9 +31,9 @@ export const updatePermissionStatus = (id,status) => {
 		const res = Promise.resolve(
       axios.put(module.API.permission.updatePermissionStatus + `?permissionId=${id}&status=${value}`)
       .then((res) => {
-        return res.data;
+        return res;
       }, (res) => {
-        return res.message;
+        return res;
       })
     );
     return res;

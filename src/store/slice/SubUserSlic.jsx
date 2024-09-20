@@ -17,7 +17,7 @@ const roleSlice = createSlice({
 				state.subUserBody = action.payload;
 			},
 			postRole(state,action) {
-				state.roles = action.payload;
+				state.roles = action.payload.data?.response;
 			},
 			updateUserFields(state,action) {
 				state.subUserBody[action.payload.field] = action.payload.value;

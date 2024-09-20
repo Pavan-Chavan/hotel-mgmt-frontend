@@ -6,14 +6,16 @@ export const AuthContext = createContext();
 
 export const AuthContexProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
+    JSON.parse(localStorage.getItem("user")) || {}
   );
-
+  const [statusMessage, setStatusMessege] = useState({statusMessage : "", category:""});
   const login = async (inputs) => {
     const res = await axios.post(`${API_HEADER}auth/signin`, inputs);
-    console.log("==>"+JSON.stringify(res.data.token));
-    setCurrentUser({username: res.data?.username, roles:res.data.role, userId: res.data.id});
-    sessionStorage.setItem("Authorization",`Bearer ${res.data.token}`)
+    if (res.status === 200) {
+      setCurrentUser({username: res.data?.username, roles:res.data.roles, userId: res.data.id});
+      sessionStorage.setItem("Authorization",`Bearer ${res.data.token}`);
+      setStatusBarMessege(`${res.data.username} you have logged in succefully`);
+    }
     return res;
   };
 
@@ -27,8 +29,15 @@ export const AuthContexProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
+  const setStatusBarMessege = (newMessage,newCategory) => {
+    setStatusMessege({...statusMessage,...{statusMessage : newMessage, category:newCategory}});
+    setTimeout(()=>{
+      setStatusMessege({statusMessage : "", category:""});
+    },2000)
+  }
+
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, logout, setStatusBarMessege, statusMessage }}>
       {children}
     </AuthContext.Provider>
   );

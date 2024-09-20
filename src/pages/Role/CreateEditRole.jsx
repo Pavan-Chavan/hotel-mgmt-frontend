@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getRole, resetRoleData, updateRole } from "../../store/slice/RoleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { createRole } from "../../api/role";
-
+import { AuthContext } from "../../context/authContext";
 const renderFormTitle = (mode) => {
   if(mode === "edit") {
     return "Edit";
@@ -18,7 +18,8 @@ export default function CreateEditRole() {
   const mode = location.pathname.split("/")[2];
   const dispatchAction = useDispatch();
   const state = useLocation().state;
-  const roleData = useSelector((state) => {return state.roles})
+  const roleData = useSelector((state) => {return state.roles});
+  const { setStatusBarMessege } = useContext(AuthContext);
 
   useEffect(()=>{
     if(mode === "edit") {
@@ -36,10 +37,14 @@ export default function CreateEditRole() {
     dispatchAction(updateRole({value,field}));
   }
 
-  const postRole = (options) => {
-    createRole(options);
-    console.log(options);
-    navigate("/role")
+  const postRole = async (options) => {
+    const res = await createRole(options);
+    if (res.status === 200) {
+      setStatusBarMessege(`Role ${mode} succefully`,"info");
+    } else {
+      setStatusBarMessege(`Something went wrong !!!`,"danger");
+    }
+    navigate("/");
   }
 
   return (

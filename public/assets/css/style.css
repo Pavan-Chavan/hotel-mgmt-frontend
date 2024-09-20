@@ -21095,7 +21095,7 @@ div.tagsinput {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
-  flex-direction: row;
+  flex-direction: column;
   padding-left: 0;
   padding-right: 0;
   transition: all 0.25s ease;

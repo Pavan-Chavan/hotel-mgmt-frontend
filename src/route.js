@@ -13,6 +13,7 @@ import PermissionList from "./pages/Permission/PermissionList";
 import CreateEditPermission from "./pages/Permission/CreateEditPermission";
 import SubUserList from "./pages/SubUser/SubUserList";
 import CreateEditSubUser from "./pages/SubUser/CreateEditSubUser";
+import StatusBar from "./components/StatusBar";
 
 const Layout = () => {
   return (
@@ -21,6 +22,7 @@ const Layout = () => {
         {<SideBar/>}
         <div class="container-fluid page-body-wrapper">
         {<Navbar/>}
+		<StatusBar/>
         <Outlet />
       </div>
       </div>

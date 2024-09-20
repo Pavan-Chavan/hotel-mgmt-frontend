@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteRole, getRolesData, updateRoleStatus } from "../../api/role";
+import { AuthContext } from "../../context/authContext";
 
-const renderRoleList = (Roles,isLoading) => {
-
+const useRenderRoleList = (Roles,isLoading) => {
+  const navigate = useNavigate();
+  const { setStatusBarMessege } = useContext(AuthContext);
   const deleteRoleId = async (id) => {
-    const resMsg = await deleteRole(id);
-    window.alert(resMsg);
-    window.location.reload();
+    const res = await deleteRole(id);
+    if (res.status === 200) {
+      setStatusBarMessege("Role delete succesfully...","info");
+    } else {
+      setStatusBarMessege("Something went wrong","danger");
+    }
+    navigate("/role");
   }
 
   const updateRoleId = async (id,status) => {
@@ -43,20 +49,16 @@ const renderRoleList = (Roles,isLoading) => {
 const RoleList = () => {
   const [Roles, setRoles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError,setIsError] = useState("");
+  const { setStatusBarMessege } = useContext(AuthContext);
 
   useEffect(()=>{
     async function fetchRoles() {
       setIsLoading(true);
       const res = await getRolesData();
-      if(res.status == 200) {
+      if(res.status === 200) {
         setRoles(res.data.response);
       } else {
-        setIsError(res.response.data);
-        setInterval(()=>{
-          setIsError("");
-        },3000);
-        console.log();
+        setStatusBarMessege("Something went wrong","danger");
       }
       setIsLoading(false);
     }
@@ -77,7 +79,6 @@ const RoleList = () => {
             <div className="card">
               <div className="card-body">
                 <div className="table-responsive">
-                {isError && <div class="alert alert-info text-dark" role="alert">{isError}</div>}
                   <table className="table">
                     <thead>
                       <tr>
@@ -87,7 +88,7 @@ const RoleList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {renderRoleList(Roles,isLoading)}
+                      {useRenderRoleList(Roles,isLoading)}
                     </tbody>
                   </table>
                 </div>

@@ -12,8 +12,7 @@ const Login = () => {
   const [err, setError] = useState(null);
 
   const navigate = useNavigate();
-
-  const { login } = useContext(AuthContext);
+  const { login, setStatusBarMessege } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,18 +21,21 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(inputs);
-      navigate("/dashboard");
+      const res = await login(inputs);
+      if (res.code != 200) {
+        navigate("/dashboard");
+      }
     } catch (err) {
+      setStatusBarMessege(`${err.response.data}`);
       setError(err.response.data);
-      navigate("/dashboard");
+      navigate("/login");
     }
   };
 
   return (
     <div class="container-scroller w-100 mt-5">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="row w-100 m-0">
+        <div class="row w-100 m-0 h-100">
           <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
             <div class="card col-lg-6 mx-auto">
               <div class="card-body px-5 py-5">
@@ -49,22 +51,22 @@ const Login = () => {
                   </div>
                   {err && <p class="sign-up">{err}</p>}
                   <div class="form-group d-flex align-items-center justify-content-between">
-                    <div class="form-check">
+                    {/* <div class="form-check">
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input"/> Remember me </label>
-                    </div>
+                    </div> */}
                     <a href="#" class="forgot-pass">Forgot password</a>
                   </div>
                   <div class="text-center">
                     <button type="submit" onClick={handleSubmit} class="btn btn-primary btn-block enter-btn">Login</button>
                   </div>
-                  <div class="d-flex">
+                  {/* <div class="d-flex">
                     <button class="btn btn-facebook mr-2 col">
                       <i class="mdi mdi-facebook"></i> Facebook </button>
                     <button class="btn btn-google col">
                       <i class="mdi mdi-google-plus"></i> Google plus </button>
-                  </div>
-                  <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p>
+                  </div> */}
+                  {/* <p class="sign-up">Don't have an Account?<a href="#"> Sign Up</a></p> */}
                 </form>
               </div>
             </div>

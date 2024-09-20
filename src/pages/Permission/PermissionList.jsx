@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { deletePermission, getPermissionData, updatePermissionStatus } from "../../api/permission";
 import { useState } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const PermissionList = () => {
 
   const [Permissions, setPermissions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { setStatusBarMessege } = useContext(AuthContext);
 
   useEffect(()=>{
     async function fetchPermission() {
@@ -19,15 +21,17 @@ const PermissionList = () => {
   },[]);
 
   const updatePermission = async (id,status) => {
-    const resMsg = await updatePermissionStatus(id,status);
-    window.alert(resMsg);
-    window.location.reload();
+    const res = await updatePermissionStatus(id,status);
+    if (res.status === 200) {
+      setStatusBarMessege(res.data.permissionName + "updated succefully");
+    } else {
+      setStatusBarMessege("something went wrong");
+    }
   };
 
   const deletePermissionId = async (id) => {
     const resMsg = await deletePermission(id);
-    window.alert(resMsg);
-    window.location.reload();
+    setStatusBarMessege(resMsg);
   }
 
   const renderPermissionList = () => {

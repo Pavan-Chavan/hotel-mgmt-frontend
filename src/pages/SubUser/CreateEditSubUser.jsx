@@ -121,9 +121,13 @@ export default function CreateEditSubUser() {
                     <input type="text" name="username" className="form-control" onChange={(e)=>{updateField(e.target.value,e.target.name)}} value={subUser.subUserBody?.username} id="userName"  placeholder="User Name"/>
                   </div>
                   <div className="form-group">
+                    <label for="userName">Password</label>
+                    <input type="password" name="password" className="form-control" onChange={(e)=>{updateField(e.target.value,e.target.name)}} value={subUser.subUserBody?.password} id="userName"  placeholder="User Name"/>
+                  </div>
+                  <div className="form-group">
                     <label for="roleName">Role Id</label>
                       <select class="js-example-basic-single" name="roleId" style={{width:"100%"}} onChange={(e)=>{updateField(e.target.value,e.target.name)}}>
-                        {subUser.roles.map((role)=>{
+                        {subUser?.roles?.map((role)=>{
                           return <option value={role.roleId}>{role.roleName}</option>
                         })}
                       </select>

@@ -2,8 +2,9 @@ import axios from "axios";
 import { module } from "../moduleConfig";
 import { RolelistData } from "../mockData/roleMockDataList";
 
+axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization');
+
 export const getRolesData = () => {
-  axios.defaults.headers.common['Authorization'] = sessionStorage.getItem('Authorization');
 	try {
 		if(module.demoMode) return RolelistData;
 		const res = axios.get(module.API.role.getRoles)
@@ -23,7 +24,9 @@ export const createRole = (options) => {
   try {
     if(module.demoMode) return;
     const res = axios.post(module.API.role.saveRole,options)
-      .then((res) => {console.log(res)});
+      .then((res) => { return res;})
+      .catch((res)=>{ return res;});
+      return res;
   } catch (err) {
     console.log(err);
   }
